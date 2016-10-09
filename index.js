@@ -22,8 +22,8 @@ var fs = require('fs'),
     AWS = require('aws-sdk'),
     Promise = require('bluebird'),
     readFileAsync = Promise.promisify(fs.readFile),
-    BaseStore = requireFromGhost("./base", false),
-    LocalFileStore = requireFromGhost("./local-file-store", false);
+    BaseStore = requireFromGhost("./base", true),
+    LocalFileStore = requireFromGhost("./local-file-store", true);
 
 // Use Bluebird Promises in AWS
 AWS.config.setPromisesDependency(Promise);
