@@ -8,8 +8,8 @@ var fs = require('fs'),
     AWS = require('aws-sdk'),
     Promise = require('bluebird'),
     readFileAsync = Promise.promisify(fs.readFile),
-    BaseStore = require('./base'),
-    LocalFileStore = require('./local-file-store');
+    BaseStore = require('../base'),
+    LocalFileStore = require('../local-file-store');
 
 // Use Bluebird Promises in AWS
 AWS.config.setPromisesDependency(Promise);
