@@ -4,11 +4,11 @@
 
 var requireFromGhost = function(module, blocking) {
     try {
-        return require('ghost/' + module);
+        return require(path.join('ghost/core/server/storage', module));
     } catch (e) {
         if (e.code !== 'MODULE_NOT_FOUND') throw e;
         try {
-            return require(path.join(process.cwd(), module));
+            return require(module);
         } catch (e) {
             if (e.code !== 'MODULE_NOT_FOUND' || blocking) throw e;
             return null;
@@ -22,8 +22,8 @@ var fs = require('fs'),
     AWS = require('aws-sdk'),
     Promise = require('bluebird'),
     readFileAsync = Promise.promisify(fs.readFile),
-    BaseStore = requireFromGhost("core/server/storage/base", false),
-    LocalFileStore = requireFromGhost("core/server/storage/local-file-store", false);
+    BaseStore = requireFromGhost("./base", false),
+    LocalFileStore = requireFromGhost("./local-file-store", false);
 
 // Use Bluebird Promises in AWS
 AWS.config.setPromisesDependency(Promise);
