@@ -2,28 +2,14 @@
 
 // # S3 storage module for Ghost blog http://ghost.org/
 
-var requireFromGhost = function(module, blocking) {
-    try {
-        return require(path.join('ghost/core/server/storage', module));
-    } catch (e) {
-        if (e.code !== 'MODULE_NOT_FOUND') throw e;
-        try {
-            return require(module);
-        } catch (e) {
-            if (e.code !== 'MODULE_NOT_FOUND' || blocking) throw e;
-            return null;
-        }
-    }
-};
-
 var fs = require('fs'),
     path = require('path'),
     util = require('util'),
     AWS = require('aws-sdk'),
     Promise = require('bluebird'),
     readFileAsync = Promise.promisify(fs.readFile),
-    BaseStore = requireFromGhost("./base", true),
-    LocalFileStore = requireFromGhost("./local-file-store", true);
+    BaseStore = require('./base'),
+    LocalFileStore = require('./local-file-store');
 
 // Use Bluebird Promises in AWS
 AWS.config.setPromisesDependency(Promise);
